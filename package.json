@@ -1,0 +1,22 @@
+{
+  "name": "fresh-tomatoes",
+  "version": "1.0.0",
+  "description": "Node JS Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mbudak/fresh-tomatoes.git"
+  },
+  "keywords": [
+    "nodejs"
+  ],
+  "author": "Murat BUDAK",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mbudak/fresh-tomatoes/issues"
+  },
+  "homepage": "https://github.com/mbudak/fresh-tomatoes#readme"
+}
