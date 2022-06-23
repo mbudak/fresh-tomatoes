@@ -4,6 +4,9 @@ const { engine } = require('express-handlebars');
 
 // App
 const app = express();
+// Add Static file e.g. css
+
+app.use(express.static(__dirname + '/public'));
 
 // Handlebars setup
 app.engine('handlebars', engine({ defaultLayout: 'main'}));
@@ -20,6 +23,9 @@ app.get('/', (req, res) => {
     res.render('reviews-index', {'reviews': reviews})
 })
 
+app.get('/reviews/new', (req, res) => {
+    res.render('reviews-new', {});
+})
 // Misc
 app.listen(3000, () => {
     console.log('App is listening on port 3000!');
