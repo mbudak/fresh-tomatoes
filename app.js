@@ -1,5 +1,6 @@
 const express = require('express');
 const { engine } = require('express-handlebars');
+const {MongoClient} = require('mongodb');
 
 
 // App
@@ -19,6 +20,7 @@ const reviews = [
     {"title": "Good movie", "movieTitle": 'Inception'},
     {"title": "Wors Movie", "movieTitle": 'Jaws'}
 ]
+
 app.get('/', (req, res) => {
     res.render('reviews-index', {'reviews': reviews})
 })
