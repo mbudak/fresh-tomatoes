@@ -1,7 +1,14 @@
+// Loads the configuration from config.env to process.env
+require('dotenv').config({ path: './.env.local' });
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const express = require('express');
-// const dbo = require('./db/conn');
-require('dotenv').config();
+// get MongoDB driver connection
+const dbo = require('./db/conn');
+const cors = require('cors');
+
+
+const PORT = process.env.PORT || 3000;
 
 
 // ENV 
@@ -12,8 +19,10 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 
 // App
 const app = express();
-// Add Static file e.g. css
+app.use(cors());
+app.use(express.json());
 
+// Add Static file e.g. css
 app.use(express.static(__dirname + '/public'));
 
 // Handlebars setup
@@ -26,15 +35,17 @@ const reviews = [
     {"title": "Wors Movie", "movieTitle": 'Jaws'}
 ]
 app.get('/', (req, res) => {
-    client.connect(err => {
-        const collection = client.db("fresh-tomatoes").collection("reviews");
-        console.log('collection', collection.find({}));
-        // perform actions on the collection object
-        client.close();
+    const dbConnect = dbo.getDb();
+    dbConnect
+      .collection('reviews')
+      .find({})
+      .limit(100)
+      .toArray(function (err, result) {
+        if (err) {
+            res.render('reviews-index', {'reviews': []});
+        }
+        res.render('reviews-index', {'reviews': result})    
       });
-
-    res.render('reviews-index', {'reviews': reviews})
-    
 })
 
 app.get('/reviews/new', (req, res) => {
@@ -42,7 +53,14 @@ app.get('/reviews/new', (req, res) => {
 })
 
 
-// Misc
-app.listen(3000, () => {
-    console.log('App is listening on port 3000!');
-})
+dbo.connectToServer(function (err) {
+    if (err) {
+      console.error(err);
+      process.exit();
+    }
+  
+    // start the Express server
+    app.listen(PORT, () => {
+      console.log(`Server is running on port: ${PORT}`);
+    });
+  });
