@@ -1,3 +1,8 @@
 * {
     box-sizing: border-box;
 }
+
+.btn {
+    margin-left: 4px;
+    margin-right: 4px;
+}
