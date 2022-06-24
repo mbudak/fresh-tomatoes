@@ -108,11 +108,26 @@ app.get('/reviews/:id', (req, res) => {
       .find(searchFilter)
       .limit(1)
       .toArray(function (err, result) {
-        console.log('rev', result[0])
+        // console.log('rev', result[0])
         res.render('reviews-show', {'review': result[0]})
       });
+})
 
-
+// edit
+app.get('/reviews/:id/edit', (req, res) => {
+  const dbConnect = dbo.getDb();
+  const searchFilter = {
+    _id : new ObjectId(req.params.id)
+  }
+  
+  dbConnect
+      .collection('reviews')
+      .find(searchFilter)
+      .limit(1)
+      .toArray(function (err, result) {
+        // console.log('rev', result[0])
+        res.render('reviews-edit', {'review': result[0]})
+      });
 })
 
 dbo.connectToServer(function (err) {
