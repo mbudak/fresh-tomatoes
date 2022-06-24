@@ -2,7 +2,9 @@
 require('dotenv').config({ path: './.env.local' });
 var bodyParser = require('body-parser')
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
+// var ObjectId = require('mongodb').ObjectID;
+
 const express = require('express');
 // get MongoDB driver connection
 const dbo = require('./db/conn');
@@ -32,7 +34,7 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 app.use(cors());
 
 // parse application/json
-// app.use(bodyParser.json())
+app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
 
 
@@ -92,6 +94,24 @@ app.post('/reviews', (req, res) => {
   })
   // go back to home
   res.redirect("/");
+})
+
+// show
+app.get('/reviews/:id', (req, res) => {
+  const dbConnect = dbo.getDb();
+  const searchFilter = {
+    _id : new ObjectId(req.params.id)
+  }
+  
+  dbConnect
+      .collection('reviews')
+      .find(searchFilter)
+      .limit(1)
+      .toArray(function (err, result) {
+        res.render('reviews-show', {'review': result[0]})
+      });
+
+
 })
 
 dbo.connectToServer(function (err) {
