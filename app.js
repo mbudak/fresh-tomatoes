@@ -108,6 +108,7 @@ app.get('/reviews/:id', (req, res) => {
       .find(searchFilter)
       .limit(1)
       .toArray(function (err, result) {
+        console.log('rev', result[0])
         res.render('reviews-show', {'review': result[0]})
       });
 
