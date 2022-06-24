@@ -1,5 +1,6 @@
-// Loads the configuration from config.env to process.env
+// Requires
 require('dotenv').config({ path: './.env.local' });
+var bodyParser = require('body-parser')
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const express = require('express');
@@ -29,7 +30,14 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 */
 
 app.use(cors());
-app.use(express.json());
+
+// parse application/json
+// app.use(bodyParser.json())
+app.use(express.urlencoded({ extended: true }))
+
+
+
+
 
 // Add Static file e.g. css
 app.use(express.static(__dirname + '/public'));
@@ -66,8 +74,24 @@ app.get('/reviews/new', (req, res) => {
     res.render('reviews-new', {});
 })
 
-app.post('/reviews/new', (req, res) => {
-  console.log('post here', req, res);
+
+app.post('/reviews', (req, res) => {
+  // review data
+  var aData = {
+    id: null,
+    title: req.body.title,
+    movieTitle: req.body.movieTitle
+  }
+  // db connection
+  const dbConnect = dbo.getDb();
+  // db command
+  dbConnect
+    .collection('reviews')
+    .insertOne(aData, (err, result) => {
+      console.log('created');
+  })
+  // go back to home
+  res.redirect("/");
 })
 
 dbo.connectToServer(function (err) {
