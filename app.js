@@ -134,6 +134,29 @@ app.get('/reviews/:id/edit', (req, res) => {
       });
 })
 
+// Edit - PATCH/PUT
+app.post('/reviews/:id', (req, res) => {
+  const dbConnect = dbo.getDb();
+  const searchFilter = {
+    _id : new ObjectId(req.params.id)
+  }
+
+  const aDoc = {
+    _id : new ObjectId(req.params.id),
+    title: req.body.title,
+    movieTitle: req.body.movieTitle
+  }
+  
+  dbConnect
+      .collection('reviews')
+      .replaceOne(searchFilter, aDoc, (err, adoc) => {
+        console.log(err);
+        console.log(adoc)
+      })
+  res.redirect("/");
+})
+
+// Delete Doc
 app.delete('/reviews/:id', (req, res) => {
   const dbConnect = dbo.getDb();
   const searchFilter = {
