@@ -17,13 +17,27 @@ let uri = process.env.ATLAS_URI;
 const { engine } = require('express-handlebars');
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
+const path = require('path')
 // App
 const app = express();
+
+// Bootstrap
+/*
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+*/
+
 app.use(cors());
 app.use(express.json());
 
 // Add Static file e.g. css
 app.use(express.static(__dirname + '/public'));
+
+// middle-wares
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
+
 
 // Handlebars setup
 app.engine('handlebars', engine({ defaultLayout: 'main'}));
@@ -52,6 +66,9 @@ app.get('/reviews/new', (req, res) => {
     res.render('reviews-new', {});
 })
 
+app.post('/reviews/new', (req, res) => {
+  console.log('post here', req, res);
+})
 
 dbo.connectToServer(function (err) {
     if (err) {

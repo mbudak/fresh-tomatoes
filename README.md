@@ -46,10 +46,10 @@ URL                     HTTP        ACTION      DESC
 
 | URL      | HTTP | ACTION | DESC |
 | ----------- | ----------- | ----------- | ----------- |
-| /reviews            |    GET        | index     |  Show all reviews          |
-| /reviews/new        |    GET        | new       |  See a new review form|
-| /reviews            |    POST       | create    |  Create a new review|
-| /reviews/:id        |    GET        | show      |  See single review|
-| /reviews/:id/edit   |    GET        | edit      |  See an edit review form|
-| /reviews/:id        |    PATCH/PUT  | update    |  Update a review|
-| /reviews/:id        |    DELETE     | destroy   |  Delete a review|
+| /reviews            |    GET        | index     |  Show all reviews           |
+| /reviews/new        |    GET        | new       |  See a new review form      |
+| /reviews            |    POST       | create    |  Create a new review        |
+| /reviews/:id        |    GET        | show      |  See single review          |
+| /reviews/:id/edit   |    GET        | edit      |  See an edit review form    |
+| /reviews/:id        |    PATCH/PUT  | update    |  Update a review            |
+| /reviews/:id        |    DELETE     | destroy   |  Delete a review            |

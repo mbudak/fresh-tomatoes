@@ -1,37 +1,3 @@
 * {
     box-sizing: border-box;
-    font-family: sans-serif;
-}
-a {
-    text-decoration: none;
-  }
-
-  
-.btn{
-    width: auto;
-    display: inline-block;
-    border: 0;
-    padding: 10px;
-    color: white;
-    font-size: 16px;
-    border-radius: 3px;
-    font-family: inherit;
-    margin-bottom: 10px;
-    background-color: #444;
-}
-
-.btn-default {
-      background-color: #529490;
-}
-
-.btn-success {
-    background-color: #4abb6b;
-}
-
-.btn-error {
-    background-color: #ad3d41;
-}
-
-.btn-danger {
-    background-color: #ff8d00;
 }
