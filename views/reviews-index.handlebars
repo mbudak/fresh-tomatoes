@@ -21,8 +21,17 @@
   <div class="card-body">
     <h5 class="card-title">{{this.title}}</h5>
     <p class="card-text">{{this.movieTitle}}</p>
+
+
+    <nav class="nav nav-pills nav-fill">
+    <form action="/reviews/{{this._id}}?_method=DELETE" method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    
     <a href="/reviews/{{this._id}}" class="btn btn-secondary">Show</a>
     <a href="/reviews/{{this._id}}/edit" class="btn btn-primary">Edit</a>
+    </nav>
+    
   </div>
 </div>
 

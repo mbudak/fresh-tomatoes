@@ -1,5 +1,6 @@
 // Requires
 require('dotenv').config({ path: './.env.local' });
+var methodOverride = require('method-override')
 var bodyParser = require('body-parser')
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
@@ -36,6 +37,9 @@ app.use(cors());
 // parse application/json
 app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
+
+// action overrides
+app.use(methodOverride('_method'))
 
 
 
@@ -129,6 +133,22 @@ app.get('/reviews/:id/edit', (req, res) => {
         res.render('reviews-edit', {'review': result[0]})
       });
 })
+
+app.delete('/reviews/:id', (req, res) => {
+  const dbConnect = dbo.getDb();
+  const searchFilter = {
+    _id : new ObjectId(req.params.id)
+  }
+  
+  dbConnect
+      .collection('reviews')
+      .deleteOne(searchFilter, (err, adoc) => {
+        console.log(err);
+        console.log(adoc)
+      })
+  res.redirect("/");
+})
+
 
 dbo.connectToServer(function (err) {
     if (err) {
